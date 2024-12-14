@@ -3,7 +3,7 @@ name: deploy pages
 on:
   push:
     branches:
-      - pages
+      - master
 
   workflow_dispatch:
 
@@ -67,4 +67,4 @@ jobs:
     steps:
       - name: deploy GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
