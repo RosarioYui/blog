@@ -1,0 +1,133 @@
+{
+    {- /* Generates a valid Algolia search index */ -
+    }
+}
+{
+    {- define "algolia-section-array" -
+    }
+}
+  {
+    {- if and (not .parent.IsHome) .parent.Title -
+    }
+}
+    {
+    {- if .parent.Parent -
+    }
+}
+      {
+    {- template "algolia-section-array" (dict "scratch" .scratch "parent" .parent.Parent) -
+    }
+}
+    {
+    {- end -
+    }
+}
+    {
+    {- .scratch.Add "sections" .parent.Title -
+    }
+}
+  {
+    {- end -
+    }
+}
+{
+    {- end -
+    }
+}
+
+{
+    {- $.Scratch.Set "index" dict -
+    }
+}
+{
+    {- range .Site.RegularPages -
+    }
+}
+  {
+    {- if and (not .Draft) (not .Params.hide) (not .Params.hideSearch) (not .IsHome) .IsPage -
+    }
+}
+    {
+    {- $.Scratch.Set "record" dict -
+    }
+}
+    {
+    {- if .Parent -
+    }
+}
+      {
+    {- $.Scratch.Set "sections" slice -
+    }
+}
+      {
+    {- template "algolia-section-array" (dict "scratch" $.Scratch "parent" .Parent) -
+    }
+}
+      {
+    {- $.Scratch.SetInMap "record""sections" ($.Scratch.Get "sections") -
+    }
+}
+    {
+    {- end -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""title" .Title -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""slug" (path.Base .RelPermalink) -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""keywords" .Keywords -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""path" .RelPermalink -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""date" .PublishDate -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""weight" .Weight -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""sectionWeight" (.Site.GetPage "section" .Section).Weight -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""section" (.Site.GetPage "section" .Section).Title -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""layout" .Layout -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""tags" .Params.Tags -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "record""categories" .Params.Categories -
+    }
+}
+    {
+    {- $.Scratch.SetInMap "index" .RelPermalink ($.Scratch.Get "record") -
+    }
+} 
+  {
+    {- end -
+    }
+}
+{
+    {- end -
+    }
+}
+{
+    {- $.Scratch.Get "index" | jsonify -
+    }
+}

@@ -1,0 +1,49 @@
+{{- if lt hugo.Version "0.125.7" }}
+{{- errorf "=> hugo v0.125.7 or greater is required for hugo-PaperMod to build " }}
+{{- end -}}
+
+<!DOCTYPE html>
+<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
+
+<head>
+    {{- partial "head.html" . }}
+</head>
+
+<body class="
+{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
+{{- print "list" -}}
+{{- end -}}
+{{- if eq site.Params.defaultTheme `dark` -}}
+{{- print " dark" }}
+{{- end -}}
+" id="top">
+    {{- partialCached "header.html" . .Page -}}
+    <main class="main">
+        {{- block "main" . }}{{ end }}
+    </main>
+    {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
+</body>
+{{ $fonts := resources.Get "css/fonts.css" | resources.Minify }}
+<link rel="stylesheet" href="{{ $fonts.Permalink }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/srcery.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+<script>hljs.highlightAll();</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
+<div id="searchbox"></div>
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript">
+    docsearch({
+        appId: "XE91G8QVL5",
+        apiKey: "58307dcd232fecb825c755151a52d2cc",
+        indexName: "rosarioyuiio",
+        container: "#searchbox",
+        debug: false
+    });
+</script>
+</html>
