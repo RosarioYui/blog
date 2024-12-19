@@ -22,15 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         apiKey: "58307dcd232fecb825c755151a52d2cc",
         indexName: "rosarioyuiio",
         container: "#searchMenuBtn",
-        debug: false,
-        hitComponent({ hit, children }) {
-            return `
-            <a href="${hit.url}" class="custom-hit">
-                <div class="custom-title">${hit.hierarchy.lvl0} - ${hit.hierarchy.lvl1}</div>
-                <div class="custom-description">${hit.url}</div>
-            </a>
-        `;
-        },
+        debug: false
     });
     
 });
