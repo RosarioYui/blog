@@ -10,6 +10,7 @@ buildFuture = false
 buildExpired = false
 
 pygmentsUseClasses = true
+summaryLength = 0
 
 [minify]
 disableXML = true
